@@ -3,21 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File Upload</title>
+  <title>Smart Wardrobe - Your Digital Closet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data">
-  <div>
-    <label for="profile_pic">Choose file to upload</label>
-    <input
-      type="file"
-      id="profile_pic"
-      name="profile_pic"
-      accept=".jpg, .jpeg, .png" />
-  </div>
-  <div>
-    <button>Submit</button>
-  </div>
-</form>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <span class="logo-icon">👗</span>
+        <span class="logo-text">Smart Wardrobe</span>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-btn" id="home-nav-btn" onclick="navigateToHome()">Home</button>
+        <button class="nav-btn" id="wardrobe-nav-btn" onclick="navigateToWardrobe()">My Wardrobe</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Landing / Home Screen -->
+  <section id="home-screen" class="screen active">
+    <div class="home-container">
+      <div class="hero-section">
+        <div class="hero-illustration">
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Clothing Rack -->
+            <rect x="40" y="200" width="220" height="15" rx="7" fill="#8B7355"/>
+            
+            <!-- Rack poles -->
+            <line x1="60" y1="200" x2="60" y2="120" stroke="#8B7355" stroke-width="3"/>
+            <line x1="240" y1="200" x2="240" y2="120" stroke="#8B7355" stroke-width="3"/>
+            
+            <!-- Hanging rod -->
+            <line x1="60" y1="120" x2="240" y2="120" stroke="#8B7355" stroke-width="3"/>
+            
+            <!-- Hanger 1 -->
+            <path d="M 100 120 Q 100 110 110 110 Q 120 110 120 120" stroke="#C19A6B" stroke-width="2" fill="none"/>
+            <rect x="110" y="120" width="20" height="60" rx="5" fill="#FFB6C1"/>
+            
+            <!-- Hanger 2 -->
+            <path d="M 150 120 Q 150 110 160 110 Q 170 110 170 120" stroke="#C19A6B" stroke-width="2" fill="none"/>
+            <rect x="160" y="120" width="20" height="70" rx="5" fill="#DDA0DD"/>
+            
+            <!-- Hanger 3 -->
+            <path d="M 200 120 Q 200 110 210 110 Q 220 110 220 120" stroke="#C19A6B" stroke-width="2" fill="none"/>
+            <rect x="210" y="120" width="20" height="50" rx="5" fill="#F0E68C"/>
+          </svg>
+        </div>
+        <div class="hero-content">
+          <h1 class="hero-title">SMART WARDROBE</h1>
+          <p class="hero-subtitle">Turn your clothes into a clean digital wardrobe — snap, isolate, and organize every piece effortlessly.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="navigateToWardrobe()">My Wardrobe</button>
+            <button class="btn btn-secondary" onclick="navigateToUpload()">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Clothing Screen -->
+  <section id="upload-screen" class="screen">
+    <div class="upload-container">
+      <div class="upload-header">
+        <h2 class="section-title">Add to Your Wardrobe</h2>
+        <p class="section-subtitle">Upload a photo of your clothing item</p>
+      </div>
+
+      <div class="upload-content">
+        <div class="upload-area-wrapper">
+          <div class="upload-area" id="upload-area">
+            <div class="upload-icon">📸</div>
+            <p class="upload-text">Drag & drop your image here</p>
+            <p class="upload-subtext">or</p>
+            <button class="btn btn-upload" onclick="document.getElementById('file-input').click()">
+              Choose from Device
+            </button>
+            <input type="file" id="file-input" accept="image/*" hidden />
+          </div>
+          <p class="upload-note">Background will be removed automatically</p>
+        </div>
+
+        <!-- Image Preview -->
+        <div id="preview-container" class="preview-container hidden">
+          <div class="preview-header">
+            <h3>Image Preview</h3>
+            <button class="close-btn" onclick="clearPreview()">✕</button>
+          </div>
+          <img id="preview-image" class="preview-image" src="" alt="Preview" />
+        </div>
+
+        <!-- Metadata Form -->
+        <form id="metadata-form" class="metadata-form hidden">
+          <div class="form-group">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" class="form-input" required>
+              <option value="">Select a category</option>
+              <option value="Top">Top</option>
+              <option value="Bottom">Bottom</option>
+              <option value="Dress">Dress</option>
+              <option value="Footwear">Footwear</option>
+              <option value="Outerwear">Outerwear</option>
+              <option value="Accessory">Accessory</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" id="color" class="form-input" placeholder="e.g., Pink, Blue, Multicolor" />
+          </div>
+
+          <div class="form-group">
+            <label for="season" class="form-label">Season</label>
+            <select id="season" class="form-input" required>
+              <option value="">Select a season</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+              <option value="Fall">Fall</option>
+              <option value="Winter">Winter</option>
+              <option value="All-Season">All-Season</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="style-tags" class="form-label">Style Tags</label>
+            <input type="text" id="style-tags" class="form-input" placeholder="e.g., Casual, Formal, Trendy" />
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="clearForm()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add to Wardrobe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Wardrobe Screen -->
+  <section id="wardrobe-screen" class="screen">
+    <div class="wardrobe-container">
+      <div class="wardrobe-header">
+        <h2 class="section-title">My Wardrobe</h2>
+        <p class="section-subtitle" id="wardrobe-count">0 items</p>
+      </div>
+
+      <div class="wardrobe-grid" id="wardrobe-grid">
+        <!-- Items will be dynamically added here -->
+        <div class="empty-state">
+          <div class="empty-icon">👔</div>
+          <p class="empty-text">Your wardrobe is empty</p>
+          <p class="empty-subtext">Start by uploading your first clothing item</p>
+          <button class="btn btn-primary" onclick="navigateToUpload()">Upload First Item</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
