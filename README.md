@@ -1,4 +1,6 @@
 Smart Wardrobe - Digital Closet Manager
+website: https://mywardrobecollection.netlify.app
+
 Smart Wardrobe is a lightweight, frontend-driven web application designed to help users digitize their physical wardrobe. It features a modern, responsive interface for uploading clothing images, adding metadata (color, category, season), and viewing an organized collection.
 
 -- Architecture Overview
